@@ -3,7 +3,7 @@
 An AI-powered mock-interview platform that asks role-specific questions,
 analyzes answers, gives structured feedback, and tracks improvement over time.
 
-🔗 **Live demo:** https://ai-interview-prep-harsha.vercel.app
+🔗 **Live demo:** https://ai-interview-prep-harsha.onrender.com
 💻 **Stack:** React · Node.js · Generative AI APIs
 
 ---
