@@ -1,61 +1,69 @@
 # AI Interview Prep Platform
 
-An AI-powered mock-interview platform that asks role-specific questions,
-analyzes answers, gives structured feedback, and tracks improvement over time.
+Pick a topic, answer interview questions, and get scored feedback with
+strengths and gaps. Runs fully offline with a deterministic scoring engine;
+an OpenAI key can be added later for richer evaluation.
 
 🔗 **Live demo:** https://ai-interview-prep-harsha.onrender.com
-💻 **Stack:** React · Node.js · Generative AI APIs
+💻 **Stack:** Node.js · Express · Vanilla JS frontend (OpenAI optional)
 
 ---
 
 ## Why I built it
-Practicing interviews alone gives no feedback. This simulates an interviewer
-and returns specific, per-answer critique.
+Practicing interviews alone gives no feedback. This acts as a lightweight
+interviewer that returns specific, per-answer critique.
 
 ## Features
-- Role/topic selection (e.g., DSA, JavaScript, behavioral)
-- AI-generated questions, one at a time
-- Per-answer feedback: strengths, gaps, a model answer
-- Session scoring and progress tracking
+- Topic selection: DSA, JavaScript, behavioral
+- Serves questions one at a time, skipping ones already asked
+- Scores each answer (0–100) on concept coverage + depth
+- Returns specific strengths and gaps per answer
+- Works with no API key (deterministic engine); OpenAI key optional
+
+## How it works
+1. `GET /api/topics` lists available topics.
+2. `POST /api/question { topic, asked[] }` returns the next unasked question.
+3. `POST /api/evaluate { topic, id, answer }` scores the answer against the
+   question's expected concepts and returns strengths + gaps.
+
+Question selection and answer scoring are pure and unit-tested.
 
 ## Tech Stack
-| Layer     | Tech                          |
-|-----------|-------------------------------|
-| Frontend  | React                         |
-| Backend   | Node.js, Express.js           |
-| AI        | <OpenAI / Gemini> API         |
-| Database  | <MongoDB>                     |
-
-## Architecture
-1. User picks a role/topic; backend requests a question from the LLM.
-2. User submits an answer.
-3. Backend prompts the LLM to score and critique the answer in structured form.
-4. Scores persist per session for progress tracking.
-
-## Engineering notes
-- **Consistent feedback:** structured prompt + schema validation.
-- **Context management:** <how you keep session context within token limits>.
+| Layer    | Tech                                |
+|----------|-------------------------------------|
+| Backend  | Node.js, Express.js                 |
+| Frontend | Vanilla HTML/CSS/JS                  |
+| AI       | OpenAI API (optional upgrade path)  |
+| Tests    | Node.js built-in test runner        |
 
 ## Getting Started
 ```bash
 git clone https://github.com/harrsha9999/ai-interview-prep.git
 cd ai-interview-prep
 npm install
-cp .env.example .env
-npm run dev
+npm run dev      # open http://localhost:5000
+npm test         # 9 unit tests (question selection + scoring)
 ```
 
-### Environment variables
+### Environment variables (all optional)
 ```
-AI_API_KEY=
-MONGODB_URI=
 PORT=5000
+OPENAI_API_KEY=     # optional upgrade path for LLM-based evaluation
+OPENAI_MODEL=gpt-4o-mini
 ```
+
+## API
+| Method | Endpoint        | Description                          |
+|--------|-----------------|--------------------------------------|
+| GET    | /api/health     | Status + whether a key is set        |
+| GET    | /api/topics     | List topics                          |
+| POST   | /api/question   | Next unasked question for a topic    |
+| POST   | /api/evaluate   | Score an answer -> strengths + gaps  |
 
 ## Roadmap
-- [ ] Voice answers (speech-to-text)
-- [ ] Company-specific question banks
-- [ ] Shareable performance report
+- [ ] LLM-based evaluation with model answers
+- [ ] Session persistence + progress tracking
+- [ ] Expanded question bank per topic
 
 ## Author
 **Harsha Vardhan G** — [LinkedIn](https://linkedin.com/in/haarsha9999) · [GitHub](https://github.com/harrsha9999)
