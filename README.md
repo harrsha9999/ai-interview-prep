@@ -7,6 +7,8 @@ an OpenAI key can be added later for richer evaluation.
 🔗 **Live demo:** https://ai-interview-prep-harsha.onrender.com
 💻 **Stack:** Node.js · Express · Vanilla JS frontend (OpenAI optional)
 
+![CI](https://github.com/harrsha9999/ai-interview-prep/actions/workflows/ci.yml/badge.svg)
+
 ---
 
 ## Why I built it
